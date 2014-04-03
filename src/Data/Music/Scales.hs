@@ -3,6 +3,7 @@ module Data.Music.Scales
     , DegreeBase (I, II, III, IV, V, VI, VII)
     , degreeNum, degreePred
     , Accidental (Accidental), (<+>), accMinus, natural, flat, sharp
+    , scaleHas
     -- * Scales
     , Scale (scale), degreeN
     -- ** The ionian system
@@ -104,11 +105,15 @@ normalize (l:ls) = case l of
                                       in Degree pred (m <+> mod)
 
 data Scale = Scale { scale :: [Degree] }
+    deriving (Eq)
 
 degreeN :: Scale -> Degree -> Degree
 degreeN s (Degree d m) = let s' = scale s
                              Degree d' m' = s' !! ((degreeNum d) `mod` (length s'))
                          in Degree d' (m <+> m')
+
+scaleHas :: Scale -> Degree -> Bool
+scaleHas s d = d `elem` scale s
 
 -- | Left-rotate a list.
 rotate :: Int -> [a] -> [a]

@@ -19,6 +19,7 @@ data DegreeChord = DegreeChord
     { dchordDegree  :: Degree
     , dchordChord   :: Chord
     }
+  deriving (Show)
 
 -- | A pitch consists of a base note and an accidental.
 data Pitch = Pitch PitchBase Accidental
